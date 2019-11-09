@@ -1,9 +1,13 @@
+import sys
 import clang.cindex as cl
 from ctypes.util import find_library
 
 from stuff import *
 
-cl.Config.set_library_file("/usr/lib/llvm-6.0/lib/libclang.so")
+if sys.platform.startswith("darwin"):
+   cl.Config.set_library_file("/Library/Developer/CommandLineTools/usr/lib/libclang.dylib")
+elif sys.platform.startswith("linux"):
+   cl.Config.set_library_file("/usr/lib/llvm-6.0/lib/libclang.so")
 
 KIND_MAP = {
    cl.CursorKind.FOR_STMT              : Kind.LOOP,
