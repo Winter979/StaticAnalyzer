@@ -1,11 +1,11 @@
-#!/usr/bin/python3
+#!/usr/bin/env python3
 
 '''
 File: main.py
 File Created: Thursday, 7th November 2019 8:31:10 pm
 Author: Jonathon Winter
 -----
-Last Modified: Sunday, 10th November 2019 2:14:54 am
+Last Modified: Sunday, 10th November 2019 2:19:45 am
 Modified By: Jonathon Winter
 -----
 Purpose: 
