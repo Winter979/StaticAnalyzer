@@ -5,7 +5,7 @@ File: main.py
 File Created: Thursday, 7th November 2019 8:31:10 pm
 Author: Jonathon Winter
 -----
-Last Modified: Sunday, 10th November 2019 2:19:45 am
+Last Modified: Friday, 17th April 2020 5:22:16 am
 Modified By: Jonathon Winter
 -----
 Purpose: 
@@ -21,7 +21,6 @@ from glob import glob
 # print(find_library('clang'))
 
 import cParse as UCP
-import jParse as OOPD
 
 def getParent(tNode):
    interested = [Kind.TOP, Kind.FUNCTION, Kind.SWITCH, Kind.LOOP,Kind.IF]
@@ -102,18 +101,50 @@ def extract(head):
 
    return cursed
 
+def getFiles(path):
+
+   cwd = os.getcwd()
+
+   files = []
+   if os.path.isdir(path):
+      for (dirpath, dirnames, filenames) in os.walk(path):
+
+         rel = os.path.relpath(dirpath, cwd)
+
+         for filename in filenames:
+            if keepit(filename):
+               tmp = rel + '/' + filename
+               if not tmp.startswith("./"):
+                  tmp = './' + tmp
+                  
+               files.append(tmp)
+   elif os.path.isfile(path):
+      if keepit(path):
+         files.append(path)
+         
+   return files
+
+def keepit(filename):
+   return filename.endswith(".c") or filename.endswith(".h") and not filename.startswith("._")
+
 if __name__ == "__main__":
 
-   files = glob(sys.argv[1]);
+   if len(sys.argv) == 1:
+      files = getFiles(os.getcwd())
+   else:
+      files = []
+      for ii in range(1,len(sys.argv)):
+         files.extend(getFiles(sys.argv[ii]))
 
    for filename in files:
       tree = UCP.parse(filename)
 
-      filename = os.path.basename(filename)
-
       if tree is not None:
          cursed = extract(tree)
          if cursed is not None:
+
+            filename = '...' + filename[len(filename)-70:] if len(filename) > 74 else filename
+
             print("="*80)
             print("||",filename.center(74,' '),"||")
             print("||","-"*74,"||")

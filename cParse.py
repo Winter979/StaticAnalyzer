@@ -1,13 +1,23 @@
-import sys
+import os
+
 import clang.cindex as cl
 from ctypes.util import find_library
 
 from stuff import *
 
-if sys.platform.startswith("darwin"):
-   cl.Config.set_library_file("/Library/Developer/CommandLineTools/usr/lib/libclang.dylib")
-elif sys.platform.startswith("linux"):
-   cl.Config.set_library_file("/usr/lib/llvm-6.0/lib/libclang.so")
+clangLocations = [
+   "/Library/Developer/CommandLineTools/usr/lib/libclang.dylib",
+   "/usr/lib/llvm-9/lib/libclang.so",
+   "/usr/lib/llvm-8/lib/libclang.so",
+   "/usr/lib/llvm-7/lib/libclang.so",
+   "/usr/lib/llvm-6.0/lib/libclang.so",
+   "/usr/lib/llvm-5.0/lib/libclang.so"
+]
+
+for loc in clangLocations:
+   if os.path.isfile(loc):
+      cl.Config.set_library_file(loc)
+
 
 KIND_MAP = {
    cl.CursorKind.FOR_STMT              : Kind.LOOP,
