@@ -1,63 +1,63 @@
-import javalang
-import javac_parser
+# import javalang
+# import javac_parser
 
-from stuff import *
+# from utils import *
 
 
-def parse(filename):
-   tree = javalang.parse.parse(open(filename).read())
+# def parse(filename):
+#    tree = javalang.parse.parse(open(filename).read())
 
-   head = tree.types[0]
+#    head = tree.types[0]
 
-   recurse(head)
+#    recurse(head)
 
-def recurse(node, padding=""):
+# def recurse(node, padding=""):
 
-   ignore = [
-      javalang.tree.StatementExpression,
-      javalang.tree.Assignment,
-      javalang.tree.Literal,
-      javalang.tree.BlockStatement,
-      javalang.tree.BinaryOperation,
-      javalang.tree.MemberReference,
-      tuple
-   ]
+#    ignore = [
+#       javalang.tree.StatementExpression,
+#       javalang.tree.Assignment,
+#       javalang.tree.Literal,
+#       javalang.tree.BlockStatement,
+#       javalang.tree.BinaryOperation,
+#       javalang.tree.MemberReference,
+#       tuple
+#    ]
 
-   end = [
-      javalang.tree.LocalVariableDeclaration,
-      javalang.tree.ReturnStatement,
-   ]
+#    end = [
+#       javalang.tree.LocalVariableDeclaration,
+#       javalang.tree.ReturnStatement,
+#    ]
 
-   if type(node) == tuple or type(node) == list:
-      for n in node:
-         if type(n) not in ignore:
-            # recurse(n, padding+"--")
-            print(padding, type(n))
-      return
+#    if type(node) == tuple or type(node) == list:
+#       for n in node:
+#          if type(n) not in ignore:
+#             # recurse(n, padding+"--")
+#             print(padding, type(n))
+#       return
 
-   if type(node) in ignore:
-      return
+#    if type(node) in ignore:
+#       return
    
-   print(padding, type(node))
+#    print(padding, type(node))
    
-   tn = type(node)
+#    tn = type(node)
 
-   try:
+#    try:
 
-      if tn in end:
-         # Nothing needs to be done
-         pass 
-      elif tn == javalang.tree.IfStatement:
-         # print(type(node.then_statement))
-         recurse(node.then_statement,padding+"  ")
-      elif tn == javalang.tree.SwitchStatement:
-         for c in node.cases:
-            recurse(c.statements, padding+"  ")
-      else:
-         for c in node.body:
-            recurse(c, padding+"  ")
-   except AttributeError:
-      print(padding, "-----")
+#       if tn in end:
+#          # Nothing needs to be done
+#          pass 
+#       elif tn == javalang.tree.IfStatement:
+#          # print(type(node.then_statement))
+#          recurse(node.then_statement,padding+"  ")
+#       elif tn == javalang.tree.SwitchStatement:
+#          for c in node.cases:
+#             recurse(c.statements, padding+"  ")
+#       else:
+#          for c in node.body:
+#             recurse(c, padding+"  ")
+#    except AttributeError:
+#       print(padding, "-----")
       
    # body = [
    #    javalang.tree.ClassDeclaration,

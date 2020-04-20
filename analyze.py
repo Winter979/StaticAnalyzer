@@ -5,14 +5,14 @@ File: main.py
 File Created: Thursday, 7th November 2019 8:31:10 pm
 Author: Jonathon Winter
 -----
-Last Modified: Friday, 17th April 2020 5:22:16 am
+Last Modified: Friday, 17th April 2020 4:40:03 pm
 Modified By: Jonathon Winter
 -----
 Purpose: 
 '''
 
 
-from stuff import *
+from utils import *
 
 import sys
 import os

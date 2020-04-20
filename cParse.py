@@ -3,7 +3,7 @@ import os
 import clang.cindex as cl
 from ctypes.util import find_library
 
-from stuff import *
+from utils import *
 
 clangLocations = [
    "/Library/Developer/CommandLineTools/usr/lib/libclang.dylib",
